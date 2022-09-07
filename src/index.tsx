@@ -9,6 +9,7 @@ import App from './App';
 import LoginPage from './pages/Login';
 
 import './index.css';
+import { HOME_PAGE, LOGIN_PAGE } from './constants/routes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -18,8 +19,8 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path={HOME_PAGE} element={<App />} />
+          <Route path={LOGIN_PAGE} element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
