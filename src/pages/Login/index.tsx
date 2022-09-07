@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CustomButton from '../../components/atoms/CustomButton';
 import StyledTextInput from '../../components/atoms/StyledTextInput';
 import { PRIMARY_BUTTON_BLUE } from '../../constants/colors';
+import { useAppDispatch } from '../../hooks';
 import { LoginStateInterface } from '../../interfaces/Login/LoginState';
 import { FullScreenWrapper } from '../../styles/globalStyles';
 import * as S from './styles';
@@ -12,6 +13,7 @@ export default function LoginPage() {
     password: '',
     username: '',
   });
+  const dispatch = useAppDispatch();
 
   function handleTextInputChange(key: string, value: string): void {
     const newKeyValuePair: Record<string, string> = {};
@@ -20,9 +22,7 @@ export default function LoginPage() {
     setLoginState({ ...loginState, ...newKeyValuePair });
   }
 
-  function handleLoginButtonClick(): void {
-    console.log('click');
-  }
+  function handleLoginButtonClick(): void {}
 
   return (
     <FullScreenWrapper centerItems flex>
