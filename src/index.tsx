@@ -9,7 +9,9 @@ import App from './App';
 import LoginPage from './pages/Login';
 
 import './index.css';
-import { HOME_PAGE, LOGIN_PAGE } from './constants/routes';
+import { HOME_PAGE, LOGIN_PAGE, QUIZZES_PAGE } from './constants/routes';
+import QuizzesPage from './pages/Quizzes';
+import AuthorizedRoute from './components/AuthorizedRoute';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -19,8 +21,23 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path={HOME_PAGE} element={<App />} />
-          <Route path={LOGIN_PAGE} element={<LoginPage />} />
+          <Route element={<LoginPage />} path={LOGIN_PAGE} />
+          <Route
+            element={
+              <AuthorizedRoute>
+                <App />
+              </AuthorizedRoute>
+            }
+            path={HOME_PAGE}
+          />
+          <Route
+            element={
+              <AuthorizedRoute>
+                <QuizzesPage />
+              </AuthorizedRoute>
+            }
+            path={QUIZZES_PAGE}
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
