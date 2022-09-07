@@ -4,8 +4,13 @@ import StyledTextInput from '../../components/atoms/StyledTextInput';
 import { PRIMARY_BUTTON_BLUE } from '../../constants/colors';
 import { useAppDispatch } from '../../hooks';
 import { LoginStateInterface } from '../../interfaces/Login/LoginState';
+import { getToken } from '../../services/token';
+import { setAuthState } from '../../slices/authSlice';
 import { FullScreenWrapper } from '../../styles/globalStyles';
+import swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
+import { HOME_PAGE } from '../../constants/routes';
 
 export default function LoginPage() {
   const [loginState, setLoginState] = useState<LoginStateInterface>({
@@ -14,6 +19,7 @@ export default function LoginPage() {
     username: '',
   });
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function handleTextInputChange(key: string, value: string): void {
     const newKeyValuePair: Record<string, string> = {};
@@ -22,7 +28,26 @@ export default function LoginPage() {
     setLoginState({ ...loginState, ...newKeyValuePair });
   }
 
-  function handleLoginButtonClick(): void {}
+  async function handleLoginButtonClick(): Promise<void> {
+    const { moodleLink, username, password } = loginState;
+
+    try {
+      const token = await getToken(moodleLink, username, password);
+
+      dispatch(
+        setAuthState({
+          moodleBaseURL: moodleLink,
+          token,
+          password,
+          username,
+        }),
+      );
+
+      navigate(HOME_PAGE);
+    } catch (err: any) {
+      swal.fire('Error', err.message, 'error');
+    }
+  }
 
   return (
     <FullScreenWrapper centerItems flex>

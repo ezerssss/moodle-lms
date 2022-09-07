@@ -3,6 +3,7 @@ import { AuthSliceInterface } from '../interfaces/Redux/Auth';
 import { RootState } from '../store/store';
 
 const initialState: AuthSliceInterface = {
+  moodleBaseURL: '',
   token: '',
   password: '',
   username: '',
@@ -13,8 +14,9 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     setAuthState: (state, action: PayloadAction<AuthSliceInterface>) => {
-      const { token, password, username } = action.payload;
+      const { moodleBaseURL, token, password, username } = action.payload;
 
+      state.moodleBaseURL = moodleBaseURL;
       state.token = token;
       state.password = password;
       state.username = username;
