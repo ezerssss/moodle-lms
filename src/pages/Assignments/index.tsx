@@ -34,6 +34,7 @@ function AssignmentsPage() {
     }
 
     asyncGetAssignments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderAssignments = assignments.map((course) => (
