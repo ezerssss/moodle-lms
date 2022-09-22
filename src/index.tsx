@@ -2,16 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import store from './store/store';
+import store, { persistor } from './store/store';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
 import LoginPage from './pages/Login';
 
 import './index.css';
-import { HOME_PAGE, LOGIN_PAGE, QUIZZES_PAGE } from './constants/routes';
+import {
+  ASSIGNMENTS_PAGE,
+  HOME_PAGE,
+  LOGIN_PAGE,
+  QUIZZES_PAGE,
+} from './constants/routes';
 import QuizzesPage from './pages/Quizzes';
 import AuthorizedRoute from './components/AuthorizedRoute';
+import AssignmentsPage from './pages/Assignments';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -19,27 +26,37 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<LoginPage />} path={LOGIN_PAGE} />
-          <Route
-            element={
-              <AuthorizedRoute>
-                <App />
-              </AuthorizedRoute>
-            }
-            path={HOME_PAGE}
-          />
-          <Route
-            element={
-              <AuthorizedRoute>
-                <QuizzesPage />
-              </AuthorizedRoute>
-            }
-            path={QUIZZES_PAGE}
-          />
-        </Routes>
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<LoginPage />} path={LOGIN_PAGE} />
+            <Route
+              element={
+                <AuthorizedRoute>
+                  <App />
+                </AuthorizedRoute>
+              }
+              path={HOME_PAGE}
+            />
+            <Route
+              element={
+                <AuthorizedRoute>
+                  <AssignmentsPage />
+                </AuthorizedRoute>
+              }
+              path={ASSIGNMENTS_PAGE}
+            />
+            <Route
+              element={
+                <AuthorizedRoute>
+                  <QuizzesPage />
+                </AuthorizedRoute>
+              }
+              path={QUIZZES_PAGE}
+            />
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 );

@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const LoginDiv = styled.div.attrs({
   className:
     'w-[95%] max-w-[500px] h-[430px] rounded text-center p-5 drop-shadow-md',
-})``;
+})`
+  margin: 50px auto;
+`;
 
 export const TextInputContainer = styled.div.attrs({
   className: 'my-4 text-left',

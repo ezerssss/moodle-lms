@@ -1,14 +1,17 @@
 import styled from 'styled-components';
+import classnames from 'classnames';
 
 interface FullScreenWrapperProps {
   flex?: boolean;
   centerItems?: boolean;
 }
 
-export const FullScreenWrapper = styled.div.attrs<FullScreenWrapperProps>({
-  className: 'h-screen w-screen bg-gray-100',
-})<FullScreenWrapperProps>`
-  display: ${(props) => props.flex && 'flex'};
-  justify-content: ${(props) => props.centerItems && 'center'};
-  align-items: ${(props) => props.centerItems && 'center'};
-`;
+export const FullScreenWrapper = styled.div.attrs<FullScreenWrapperProps>(
+  ({ flex, centerItems }) => ({
+    className: classnames(
+      'h-screen w-screen bg-gray-100 overflow-auto float-left',
+      flex && 'md:flex',
+      centerItems && 'justify-center items-center',
+    ),
+  }),
+)<FullScreenWrapperProps>``;
