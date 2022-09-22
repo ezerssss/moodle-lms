@@ -5,6 +5,7 @@ import { RootState } from '../store/store';
 const initialState: AuthSliceInterface = {
   moodleBaseURL: '',
   token: '',
+  userID: undefined,
   password: '',
   username: '',
 };
@@ -14,10 +15,12 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     setAuthState: (state, action: PayloadAction<AuthSliceInterface>) => {
-      const { moodleBaseURL, token, password, username } = action.payload;
+      const { moodleBaseURL, token, userID, password, username } =
+        action.payload;
 
       state.moodleBaseURL = moodleBaseURL;
       state.token = token;
+      state.userID = userID;
       state.password = password;
       state.username = username;
     },
